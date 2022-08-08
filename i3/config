@@ -1,0 +1,99 @@
+set $super Mod4
+
+font pango: Noto Sans 8
+
+floating_modifier $super
+
+#==============================================================================#
+#autostart
+exec --no-startup-id lxpolkit
+exec --no-startup-id nitrogen --restore; sleep 1;
+exec --no-startup-id nm-applet
+exec --no-startup-id xfce4-power-manager
+exec --no-startup-id xautolock -time 10 -locker blurlock
+#==============================================================================#
+
+bindsym $super+Return exec xfce4-terminal
+bindsym Print --release exec --no-startup-id xfce4-screenshooter
+bindsym $super+d exec rofi -lines 12 -padding 12 -width 30 -location 0 -show drun -sidebar-mode -columns 2 -font 'Noto Sans 8'
+
+#change volume
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+
+bindsym XF86AudioLowerVolume exec amixer -q set Master 5%-
+bindsym XF86AudioMute exec amixer set Master toggle
+
+# music control
+bindsym XF86AudioNext exec mpc next
+bindsym XF86AudioPrev exec mpc prev
+bindsym XF86AudioPlay exec mpc toggle
+bindsym XF86AudioStop exec mpc stop
+
+# kill focused window
+bindsym $super+c kill
+
+# split in horizontal orientation
+bindsym $super+h split h
+
+# split in vertical orientation
+bindsym $super+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $super+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $super+s layout stacking
+bindsym $super+w layout tabbed
+bindsym $super+e layout toggle split
+
+# toggle tiling / floating
+bindsym $super+Shift+space floating toggle
+
+# focus the parent container
+bindsym $super+a focus parent
+
+# switch to workspace
+bindsym $super+1 workspace 1
+bindsym $super+2 workspace 2
+bindsym $super+3 workspace 3
+bindsym $super+4 workspace 4
+bindsym $super+5 workspace 5
+bindsym $super+6 workspace 6
+
+# move focused container to workspace
+bindsym $super+Shift+1 move container to workspace 1
+bindsym $super+Shift+2 move container to workspace 2
+bindsym $super+Shift+3 move container to workspace 3
+bindsym $super+Shift+4 move container to workspace 4
+bindsym $super+Shift+5 move container to workspace 5
+bindsym $super+Shift+6 move container to workspace 6
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $super+Shift+r restart
+
+# exit i3
+bindsym $super+q exec "i3-nagbar -t warning -m 'Really, exit?' -b 'Yes' 'i3-msg exit'"
+
+# panel
+bar {
+        colors {
+        background #2f343f
+        statusline #000000
+        separator #4b5262
+
+        # colour of border, background, and text
+        focused_workspace       #2f343f #a3be8c #d8dee8
+        active_workspace        #2f343f #2f343f #d8dee8
+        inactive_workspace      #2f343f #2f343f #d8dee8
+        urgent_workspacei       #2f343f #ebcb8b #2f343f
+    }
+        status_command i3status
+        position top
+        font pango:DejaVu Sans Mono 8.5
+}
+
+client.focused              #a3be8c #a3be8c #000000 #a3be8c #a3be8c
+client.focused_inactive     #a3be8c #a3be8c #000000 #a3be8c #a3be8c
+client.unfocused            #a3be8c #a3be8c #000000 #a3be8c #a3be8c
+client.urgent               #a3be8c #a3be8c #000000 #a3be8c #a3be8c
+client.placeholder          #a3be8c #a3be8c #000000 #a3be8c #a3be8c
+client.background           #a3be8c
